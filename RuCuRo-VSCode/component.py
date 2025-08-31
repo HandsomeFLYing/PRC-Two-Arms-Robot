@@ -1,7 +1,7 @@
 
 import tkinter as tk
 import os
-def draw_cube_ja():
+def draw_cube_ja(window):
     colors = ['green', 'red', 'orange', 'white', 'yellow', 'blue']
     color_codes = ['g', 'r', 'o', 'w', 'y', 'b']
     
@@ -90,19 +90,14 @@ def draw_face(canvas, x, y, color_list, default_color):
             # 添加中心小圆点以增强视觉效果
             canvas.create_oval(x1 + 20, y1 + 20, x1 + 30, y1 + 30, fill="white", outline="")
 
-
-
-
-
-
-
-window = tk.Tk()
-window.title("湖州职业技术学院")
-window.geometry("1440x960")
-draw_cube_jb_btn = tk.Button(window,
-    text='识别绘图',      
-    width=12, height=2,
-    font=('Arial', 12),bg = 'Yellow',
-    command=draw_cube_ja) 
-draw_cube_jb_btn.place(relx = 0.4,rely = 0.9) 
-window.mainloop()
+def open():
+    window = tk.Tk()
+    window.title("湖州职业技术学院")
+    window.geometry("1440x960")
+    draw_cube_jb_btn = tk.Button(window,
+        text='识别绘图',      
+        width=12, height=2,
+        font=('Arial', 12),bg = 'Yellow',
+        command=draw_cube_ja(window)) 
+    draw_cube_jb_btn.place(relx = 0.4,rely = 0.9) 
+    window.mainloop()

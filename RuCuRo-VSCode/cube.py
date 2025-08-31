@@ -25,12 +25,12 @@ elif(polst==1):
                 (500-x_point,315-y_point)#r面的2边点
                 ] #左右颠倒
 elif(polst==2):
-    points_list = [(x_point+10,y_point),#左面的1边点
-                (260,10+mid_point),#中面的1边点
+    points_list = [(x_point-30,y_point-12),#左面的1边点
+                (240,mid_point-10),#中面的1边点
                 (500-x_point,y_point),#右面的1边点
-                (500-x_point,315-y_point),#右面的2边点
-                (260,290-mid_point),#中面的2边点
-                (x_point+10,315-y_point)#左面的2边点
+                (500-x_point,345-y_point),#右面的2边点
+                (240,305),#中面的2边点
+                (120,270)#左面的2边点
                 ] #正常画面
 elif(polst==3):               
     points_list = [(500-x_point,315-y_point),#r面的1边点
@@ -58,10 +58,11 @@ def contour_process(in_img,out_img_shape):
 
 # 魔方颜色序列调整
 def get_case_by_sort_str(sort_str):
-    # 定义合法的映射关系（字典）
+    # 定义合法的映射关系（字典）#
+    # {'white': '白色','red': '红色','green': '绿色','yellow': '黄色','orange': '橙色','blue': '蓝色'}
     sort_mapping = {
         ('gw', 'yr', 'ob'): 0,
-        ('gr', 'oy', 'wb'): 1,
+        ('gr', 'oy', 'wb'): 1,#正常
         ('go', 'rw', 'yb'): 2,
         ('gy', 'wo', 'rb'): 3,
         ('wg', 'ry', 'bo'): 4,
@@ -79,25 +80,7 @@ def cube_list_sort():
     #case = -1
     # print(sort_list)
     case = get_case_by_sort_str(sort_str)
-    """
-    if(sort_str == 'gw' or sort_str == 'yr' or sort_str == 'ob'):
-        case = 0
-    elif(sort_str == 'gr' or sort_str == 'oy' or sort_str == 'wb'):
-        case = 1
-    elif(sort_str == 'go' or sort_str == 'rw' or sort_str == 'yb'):
-        case = 2
-    elif(sort_str == 'gy' or sort_str == 'wo' or sort_str == 'rb'):
-        case = 3
-    elif(sort_str == 'wg' or sort_str == 'ry' or sort_str == 'bo'):
-        case = 4
-    elif(sort_str == 'rg' or sort_str == 'yo' or sort_str == 'bw'):
-        case = 5
-    elif(sort_str == 'og' or sort_str == 'wr' or sort_str == 'by'):
-        case = 6
-    elif(sort_str == 'yg' or sort_str == 'ow' or sort_str == 'br'):
-        case = 7
-    """
-    print("shun \t"+str(case))
+    print("（摆放状态 \t"+ str(sort_str) + " | " +str(case))
     # 不变，顺时针，逆时针，倒转
     sort_way = [[0,1,2,3,4,5,6,7,8],
                 [6,3,0,7,4,1,8,5,2],
@@ -176,7 +159,7 @@ def img2points(img,atxt = "o"):
             f.write(str(lab_right_img[i,j][2])+'\n\n')
     f.close()
 
-# 聚类颜色识别
+# 聚类颜色识别 K-Means聚类颜色识别
 def kmeans(gamut_type):
     kmeans_points_list = []
     f = open('./data/'+gamut_type+'_points.txt',mode='r',encoding='utf-8')
